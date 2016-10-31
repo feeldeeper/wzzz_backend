@@ -1,0 +1,21 @@
+/* tables */
+
+table.table_list thead tr th, table.table_list tfoot tr th {
+	border: 1px solid #FFF;
+	font-size: 8pt;
+}
+table.table_list thead tr .header {
+	background-image: url(bg.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+table.table_list thead tr .headerSortUp {
+	background-image: url(asc.gif);
+}
+table.table_list thead tr .headerSortDown {
+	background-image: url(desc.gif);
+}
+table.table_list thead tr .headerSortDown, table.table_list thead tr .headerSortUp {
+background-color: #8dbdd8;
+}

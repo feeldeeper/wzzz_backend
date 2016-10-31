@@ -1,0 +1,35 @@
+body{width:100%;background-color:black;} 
+#top{height:50px;color:white;width:100%;}
+#tleft{float:left;}
+#tright{float:right;width:48%;height:50px;}
+#q1{font-size:30px;float:left;padding-left:20px;}
+#q2{font-size:15px;padding-top:10px;padding-left:30px;float:left;}
+#q3{float:left;font-size:12px;padding-left:15px;padding-right:40px;padding-top:15px;}
+#q4{padding-top:9px;}
+#q4 select{height:26px;width:110px;color:#999999;background:none; border:none;}
+
+#q5 input{height:28px;width:90px;color:#999999;background:url("/user/images/buttonbg.jpg");border:0;}
+#q4{float:left;height:100px;}
+#q5{float:left;padding-top:8px;}
+#q6{float:left;padding-top:8px;padding-right:20px;}
+#q61{float:left;padding-top:14px;padding-right:10px;}
+#q66{float:left;padding-top:8px;padding-right:20px;}
+.pagestart{border:0;background:url("/user/images/pagestart.jpg");width:42px;height:26px;}
+.pagepre{border:0;background:url("/user/images/pagepre.jpg");width:38px;height:26px;}
+.pagenext	{border:0;background:url("/user/images/pagenext.jpg");width:38px;height:26px;}
+.pageend{border:0;background:url("/user/images/pageend.jpg");width:42px;height:26px;}
+.pagetxt{font-size:13px;padding:0px 10px 0px 10px;}
+#q7{float:left;padding-top:8px;display:none;}
+#q7 input{height:28px;width:90px;color:#999999;background:url("/user/images/buttonbg.jpg");border:0;}
+#qsta{float:left;font-size:15px;}
+
+.zselect{width:110px;height:26px;line-height:26px;border:0px solid #ccc;position: relative;color:#ffffff;font-size:13px;}
+.zselect ul{width:100%;list-style: none;margin: 0px;padding: 0px;position: absolute;z-index: 999;border: 0px solid #ccc;background: url("/user/images/selectbg.jpg");overflow:scroll;}
+.zselect ul li{width:100%;height:26px;line-height:26px;text-align:center;margin: 0px 0px;background: url("/user/images/selectbg.jpg"); display: none; cursor: pointer;}
+.zselect ul li:hover{background: url("/user/images/selectbg2.jpg");}
+.zselect ul li.on{display: block; }
+
+#bottom{background-color:white;width:100%;text-align:center;}
+#bottom table{width:100%;border:0px #bdbdbd;}
+#bottom table tr{width:100%;height:33px;}
+#bottom table tr td{width:9%;border:solid #bdbdbd; border-width:0px 1px 1px 0px;}

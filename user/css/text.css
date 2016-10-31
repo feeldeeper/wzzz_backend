@@ -1,0 +1,121 @@
+
+a {
+    font-family: Tahoma;
+	font-size:12px;
+	text-decoration:none;
+}
+a:hover {
+    font-family: Tahoma;
+	text-decoration: underline;
+}
+.text12 {
+    font-family: Tahoma;
+	font-size: 12px;
+	text-decoration: none;
+}
+
+.style1 {color: #FE0000}
+.style2 {color: #1C1A1B}
+
+.table_head2 {
+	color:White;
+	background-color: #8A1111;
+    font-family: Tahoma;
+	font-size: 12px;
+	height: 20px;
+}
+.table_head3 {
+	color:White;
+    
+    font-family: Tahoma;
+	font-size: 12px;
+	height: 20px;
+}
+.table_title {
+	color:#FACB2B;
+	background-color: #DBC19B;
+    font-family: Tahoma;
+	font-size: 12px;
+	height: 29px;
+	background-image:url("http://ag.88gobo.net/images/title.jpg");
+	background-repeat:repeat-x;
+	
+}
+.table_head {
+	color:Black;
+    font-family: Tahoma;
+	font-size: 12px;
+	height: 20px;
+	background-repeat:repeat-x;
+}
+.table_row1 {
+	background-color: #EFEFEF;
+    font-family: Tahoma;
+	font-size: 12px;
+	height: 20px;
+	color:#1C1A1B;
+}
+.table_row2 {
+	background-color: #CCCCCC;
+    font-family: Tahoma;
+	font-size: 12px;
+	height: 20px;
+	color:#1C1A1B;
+}
+.st1
+{
+    
+     margin:10px;
+    width:98%;
+    border:0;
+    color:White;
+    }
+    .st2
+{
+    
+  
+    width:100%;
+    border:0;
+    color:White;
+    }
+
+.button
+{
+  background-image:url("http://ag.88gobo.net/images/buttonbg.jpg");
+ padding:0px;
+  color:White;
+  border:1px #282828 solid;
+  height:22px;
+    }
+    
+     .PagerStyle 
+
+{
+
+
+    background-position:center;
+
+    background-repeat:repeat-x;
+
+    background-color:#B80000;
+
+}
+
+.PagerStyle a
+
+{
+
+    color:Yellow;
+    text-decoration:none;
+    font-size:14px;
+
+}
+
+.PagerStyle span
+
+{
+    color:Black;
+    font-size:15px;
+    text-decoration:none;
+    
+}
