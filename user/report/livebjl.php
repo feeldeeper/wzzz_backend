@@ -61,7 +61,7 @@ function allmem($id, $type, $database)
 function getid($username, $database)
 {
     $query = "select * from user where username='$username'";
-    $row = $database->query($query, $database)->fetch();
+    $row = $database->query($query)->fetch();
 
     if ($row) {
         return $row['id'];
@@ -76,7 +76,7 @@ function agentresult($id, $stime, $etime, $database)
 {
     $query = "select * from user where id=$id";
     $member = new stdClass();
-    $row = $database->query($query, $database)->fetch();
+    $row = $database->query($query)->fetch();
     if ($row) {
         $member->username = $row['username'];
         $member->nickname = $row['nickName'];
@@ -88,7 +88,7 @@ function agentresult($id, $stime, $etime, $database)
     $today = date("Y-m-d", time() - 360000) . " 00:00:00";
     $query = "select * from `injectresult` where uid=$id and injecttime>='$stime' and injecttime<='$etime'";
 
-    $result = $database->query($query, $database)->fetchAll();
+    $result = $database->query($query)->fetchAll();
     $u = "";
     $ijtimes = count($result);
     $ijmoney = 0;
@@ -149,9 +149,10 @@ function memberresult($id, $stime, $etime, $database)
 {
     $query = "select * from user where id=$id";
     $member = new stdClass();
-    $row = $database->query($query, $database)->fetch();
+    $row = $database->query($query)->fetch();
 
     if ($row) {
+        $member->id = $id;
         $member->username = $row['username'];
         $member->nickname = $row['nickName'];
         $member->xima = $row['xima'];
@@ -302,7 +303,7 @@ function memberresult($id, $stime, $etime, $database)
     foreach ($members as $mem) {
         $key++; ?>
         <tr align="center">
-            <td><input type='button' class="button_style"
+            <td><?php echo $mem->username; ?><input type='button' class="button_style"
                        onclick="redirect('/user/report/bjlmember.php?id=<?php echo $mem->id; ?>&stime=<?= $stime ?>&etime=<?= $etime ?>');"
                        value='明细'></td>
             <td><?php echo $mem->ijtimes; ?></td>
@@ -349,7 +350,7 @@ function memberresult($id, $stime, $etime, $database)
         <tr align="center" id="total_listTable" class="total">
             <td><?= $key ?></td>
             <td><?= $ag->username ?></td>
-            <td><?= $ag->nickName ?></td>
+            <td><?= $ag->nickname ?></td>
             <td><?= $ag->ijtimes ?></td>
             <td><?= $ag->ijmoney ?></td>
             <td><?= $ag->gainmoney ?></td>

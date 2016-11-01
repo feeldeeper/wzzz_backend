@@ -2,8 +2,6 @@
 header("Content-type: text/html; charset=utf-8");
 include("../../user/inc/function.php");
 include("../../user/inc/conn.php");
-include("../../user/inc/sql.class.php");
-$DB = new MySql($conn);
 session_set_cookie_params(SESSION_LIFE_TIME);
 session_start();
 $uid = $_SESSION['uid'];
@@ -13,12 +11,10 @@ if(isset($uid) && $uid!="" && $uid!="0")
 else{ echo "<script>alert('请先登录!');window.location='../login.php';</script>";exit();}
 $id=1;if(isset($_GET['id']) && $_GET['id']!="") $id = $_GET['id'];
 
-$user = $database->query("select * from user where id = $id");
-$user = $user[0];
+$user = $database->query("select * from user where id = $id")->fetch();
 
 $aid=$user['pid'];
-$topuser = $database->query("select * from user where id = $aid");
-$topuser = $topuser[0];
+$topuser = $database->query("select * from user where id = $aid")->fetch();
 $ximalimit = 1.8;
 if($topuser['type']=="2" && $topuser['danshuangbian']=="0")
 	$ximalimit = 0.9;
@@ -91,7 +87,7 @@ $(function() {
 <form name="myform" method="post" action="edit.php?id=<?=$id?>">
 <input type="hidden" name="token" value="63e3bc2b0e7756920c2b361b6db59c04">
 <table cellpadding="0" cellspacing="1" class="table_form">
-	<caption>修改 <?php if($type=="member") echo "会员";else echo "代理";?> 账号</caption>
+	<caption>修改 <?php if($user['type']=="3") echo "会员";else echo "代理";?> 账号</caption>
     <tr>
       <th><strong>上线：</strong></th>
       <td>

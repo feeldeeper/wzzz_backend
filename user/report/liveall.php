@@ -165,9 +165,9 @@ function memberresult($id, $stime, $etime, $database)
     $today = date("Y-m-d", time() - 360000) . " 00:00:00";
     $query = "select * from `injectresult` where uid=$id and injecttime>='$stime' and injecttime<='$etime'";
 
-    $result = $database->query($query, $database)->fetchAll();
+    $result = $database->query($query)->fetchAll();
     $u = "";
-    $ijtimes = mysql_num_rows($result);
+    $ijtimes = count($result);
     $ijmoney = 0;
     $gainmoney = 0;
     $ximaliang = 0;

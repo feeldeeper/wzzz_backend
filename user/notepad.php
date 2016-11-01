@@ -7,7 +7,7 @@ $uid = $_SESSION['uid'];
 empty($uid) && exit();
 empty($_POST["data"]) && exit();
 
-$data = str_replace("'","''",$data);
+$data = str_replace("'","''",$_POST["data"]);
 $sql="update user set memo='$data' where id=".$uid;
 $row = $database->query($sql);
 ?>

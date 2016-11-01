@@ -1,5 +1,5 @@
 <?php date_default_timezone_set('PRC');
-$mo = $_GET['s_moudle'];
+$mo = empty($_GET['s_moudle']) ? '' : $_GET['s_moudle'];
 if (isset($_GET['s_username'])) {
     $user = $_GET['s_username'];
 } else {

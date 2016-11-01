@@ -103,7 +103,7 @@ if (isset($_POST['dosubmit']) && $_POST['dosubmit'] != "") {
 <form name="myform" method="post" action="edit.php?id=<?= $id ?>">
     <input type="hidden" name="token" value="63e3bc2b0e7756920c2b361b6db59c04">
     <table cellpadding="0" cellspacing="1" class="table_form">
-        <caption>修改 <?php if ($type == "member") echo "会员"; else echo "代理"; ?> 账号</caption>
+        <caption>修改 <?php if ($user['type'] == "3") echo "会员"; else echo "代理"; ?> 账号</caption>
         <tr>
             <th><strong>上线：</strong></th>
             <td>

@@ -10,8 +10,7 @@ $admintab = $_SESSION['admintab'];
 $key = $username;if(isset($_GET['userName'])){$key=$_GET['userName'];}
 $stime = date('Y-m-d 08:00:00',strtotime('-1 days'));if(isset($_GET['stime']) && $_GET['stime']!=""){$stime=$_GET['stime'];}
 $etime = date('Y-m-d 08:00:00',time());if(isset($_GET['etime']) && $_GET['etime']!=""){$etime=$_GET['etime'];}
-$user = $database->query("select * from user where username = '$key'");
-$user = $user[0];
+$user = $database->query("select * from user where username = '$key'")->fetch();
 $puid = $user['id']; 
 if(!$database->VerifyUserReport($admintab,$uid,$puid))
 {

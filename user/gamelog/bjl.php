@@ -194,8 +194,8 @@ if (count($uids) != 0) {
     <tfoot>
     <tr>
         <td colspan="21" class="align_r">
-            <span class="r bo">本页利润合计：<span id="pTotal"></span>&nbsp;&nbsp;总利润合计：<?php $pa = $arr[0];
-                echo $pa['totalprofit']; ?></span></td>
+            <span class="r bo">本页利润合计：<span id="pTotal"></span>&nbsp;&nbsp;总利润合计：<?php $pa = empty($arr) ? null : $arr[0];
+                echo empty($pa['totalprofit']) ? 0 : $pa['totalprofit']; ?></span></td>
     </tr>
     </tfoot>
 </table>
