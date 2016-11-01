@@ -12,7 +12,7 @@
 	{
 		echo "<script>alert('请先登录!');window.location='login.php';</script>";exit();
 	}
-	$notice = $DB->Select("select * from notice where id=2"); $notice = $notice[0];
+	$notice = $database->query("select * from notice where id=2"); $notice = $notice[0];
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

@@ -2,8 +2,6 @@
 header("Content-type: text/html; charset=utf-8");
 include("../inc/function.php");
 include("../inc/conn.php");
-include("../inc/sql.class.php");
-$DB = new MySql($conn);
 session_set_cookie_params(SESSION_LIFE_TIME);
 session_start();
 $uid = $_SESSION['uid'];
@@ -38,12 +36,12 @@ if (isset($_GET['mod2']) && $_GET['mod2'] != "") {
     $mod2 = $_GET['mod2'];
 }
 if ($key == "" || $mod2 == "1")
-    $uids = $DB->RelativeID($uid);
+    $uids = $database->RelativeID($uid);
 else
-    $uids = $DB->RelativeID2($uid, $key, $mod);
+    $uids = $database->RelativeID2($uid, $key, $mod);
 if (count($uids) != 0) {
     $uids = implode(',', $uids);
-    $arr = $DB->GameRecord($uids, $page, $stime, $etime, $key, $mod, $mod2);
+    $arr = $database->GameRecord($uids, $page, $stime, $etime, $key, $mod, $mod2);
 } else {
     $arr = array();
 }

@@ -1,45 +1,46 @@
 <?php
-	ini_set('date.timezone','Asia/Shanghai'); //ÉèÖÃÊ±Çø
+	ini_set('date.timezone','Asia/Shanghai'); //è®¾ç½®æ—¶åŒº
 	error_reporting(E_ALL ^ E_DEPRECATED);
-	while(!isset($conn))
-	{
-		$conn = mysql_pconnect("localhost","root","admin");
-	}
-	mysql_select_db("goboes",$conn);
-	mysql_query("set character set utf8");
-	mysql_query("set names utf8");
+
+	include_once("sql.class.php");
+
+    $database = new MySql([
+    'database_type' => 'mysql',
+    'database_name' => 'goboes',
+    'server' => 'localhost',
+    'username' => 'root',
+    'password' => 'admin',
+    'charset' => 'utf8'
+    ]);
 	
 	$session_time = 4 * 60 * 60;
 	
 	define('SITE_ROOT',"");
 	define('SESSION_LIFE_TIME',$session_time);
 	
-	function post_check($post) // ¶ÔÌá½»µÄ±à¼­ÄÚÈİ½øĞĞ´¦Àí
+	function post_check($post) // å¯¹æäº¤çš„ç¼–è¾‘å†…å®¹è¿›è¡Œå¤„ç†
 	{
 		
-		$post = str_replace("£¬",",",$post);
-		$post = str_replace("£®",".",$post);
-		$post = str_replace("£º",":",$post);
-		$post = str_replace("£§","'",$post);
-		$post = str_replace("£»",";",$post);
-		$post = str_replace("£¿","?",$post);
+		$post = str_replace("ï¼Œ",",",$post);
+		$post = str_replace("ï¼",".",$post);
+		$post = str_replace("ï¼š",":",$post);
+		$post = str_replace("ï¼‡","'",$post);
+		$post = str_replace("ï¼›",";",$post);
+		$post = str_replace("ï¼Ÿ","?",$post);
 		
-		$post = str_replace("£¬",",",$post);
-		$post = str_replace("¡£",".",$post);
-		$post = str_replace("£»",";",$post);
-		$post = str_replace("£º",":",$post);
+		$post = str_replace("ï¼Œ",",",$post);
+		$post = str_replace("ã€‚",".",$post);
+		$post = str_replace("ï¼›",";",$post);
+		$post = str_replace("ï¼š",":",$post);
 		
 		$post = str_replace("<p>","",$post);
 		$post = str_replace("<P>","",$post);
 		$post = str_replace("</p>","",$post);
 		$post = str_replace("</P>","",$post);
-			
-		if (!get_magic_quotes_gpc())    // ÅĞ¶Ïmagic_quotes_gpcÊÇ·ñÎª´ò¿ª
-		{
-			$post = addslashes($post);    // ½øĞĞmagic_quotes_gpcÃ»ÓĞ´ò¿ªµÄÇé¿ö¶ÔÌá½»Êı¾İµÄ¹ıÂË
-		}
 
-		$post= htmlspecialchars($post);    // html±ê¼Ç×ª»»
+		$post = addslashes($post);    // è¿›è¡Œmagic_quotes_gpcæ²¡æœ‰æ‰“å¼€çš„æƒ…å†µå¯¹æäº¤æ•°æ®çš„è¿‡æ»¤
+
+		$post= htmlspecialchars($post);    // htmlæ ‡è®°è½¬æ¢
 	 
 	   return $post;
 	}
@@ -56,4 +57,4 @@
 			$_SESSION[$key]=$GLOBALS[$key]; 
 		} 
 	}
-?>
+

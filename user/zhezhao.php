@@ -4,26 +4,26 @@ include("inc/conn.php");
 if(isset($_POST['sta']) && $_POST['sta']!="")
 {
 	if($_POST['sta']=="1")
-		upsta('0',$conn);
+		upsta('0',$database);
 	else
-		upsta('1',$conn);
+		upsta('1',$database);
 }
 
-$staa=getalllast($conn);
+$staa=getalllast($database);
 
-function upsta($txt,$conn)
+function upsta($txt,$database)
 {
 	$sql="update `status` set txt='$txt' where id=3";
-	mysql_query($sql,$conn); 
+	$database->query($sql); 
 }
 
-function getalllast($conn)
+function getalllast($database)
 {
 	$text="";
 	for($i=1;$i<20;$i++){
 		$sql="select * from `status` where id=3";
-		$query = mysql_query($sql,$conn);
-		if($row = mysql_fetch_array($query))
+		$row = $database->query($sql)->fetch();
+		if($row)
 		{
 			if($row['txt']=="1")
 				 return "1";

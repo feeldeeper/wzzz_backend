@@ -27,32 +27,32 @@ else
 
 $json=array();
 $query ="select * from user where username='$username'";
-	
-	
-$result=mysql_query($query,$conn);
-if(mysql_num_rows($result))
+
+
+$row = $database->query($query)->fetch();
+
+if($row)
 {
-	if($row = mysql_fetch_array($result))
-	{
-		$json =  getorders($row["id"],$date,$conn);
-	}
+	$json =  getorders($row["id"],$date,$database);
 }
+
 echo json_encode($json);
 
 
-function getorders($id,$date,$conn)
+function getorders($id,$date,$database)
 {
 	$orders = array();
 	$stime=$date." 00:00:00";
 	$etime=$date." 23:59:59";
 	$query = "select * from `injectresult` a,`round` t where a.uid=$id and a.injecttime>='$stime' and a.injecttime<='$etime' and a.syh<>-1 and a.rid=t.rid order by id desc";
 	
-	$result=mysql_query($query,$conn);
+	$result = $database->query($query)->fetchAll();
 	$u = "";
-	if(mysql_num_rows($result))
+	if($result)
 	{
-		while($row = mysql_fetch_array($result))
+		foreach($result as $row)
 		{
+			$order = new stdClass();
 			$order->gameNum=$row['gameNumber'];
 			$time=explode(" ",$row['injecttime']);
 			$order->date=$time[0];
@@ -96,7 +96,6 @@ function getorders($id,$date,$conn)
 			$order->orderType=$row['injecttype'];
 			$order->status="已結束";
 			array_push($orders,$order);
-			$order=null;
 		}
 	}
 	

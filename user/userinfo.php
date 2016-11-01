@@ -4,17 +4,13 @@ include("inc/function.php");
 include("inc/conn.php");
 session_set_cookie_params(SESSION_LIFE_TIME);
 session_start();
+if(empty($_SESSION['uid']) || empty($_SESSION['adminname'])){ echo "<script>alert('请先登录!');window.location='login.php';</script>";exit();}
 $uid = $_SESSION['uid'];
 $username = $_SESSION['adminname'];
-if(isset($uid) && $uid!="" && $uid!="0")
-{
-}
-else{ echo "<script>alert('请先登录!');window.location='login.php';</script>";exit();}
 $query ="select * from user where id=$uid";
-$result=mysql_query($query,$conn);
-if(mysql_num_rows($result))
+$row=$database->query($query)->fetch();
+if($row)
 {
-	$row = mysql_fetch_array($result);
 	$tel= $row["tel"];
 }
 else{$tel="";}
@@ -24,7 +20,7 @@ if(isset($_POST['dosubmit']) && $_POST['dosubmit']!="")
 	$tel = $_POST['tel'];
 
 	$query = "update user set tel='$tel' where id =$uid";
-	mysql_query($query,$conn);
+	$database->query($query);
 	echo "<script>alert(' 资料更新成功!');</script>";
 }
 ?>
@@ -42,14 +38,14 @@ if(isset($_POST['dosubmit']) && $_POST['dosubmit']!="")
 #password_notice{color:red}
 .table_list th{ line-height:16px; height:16px}
 /*密码强度判定*/
-.pw_check { width:150px; background:url(/skin/images/pw_check.gif)  no-repeat; height:20px;}
+.pw_check { width:150px; background:url()  no-repeat; height:20px;}
 .pw_check span { width:50px; height:14px; line-height:14px; margin-bottom:6px; text-align:center; display:block; float:left;}
 #pw_check_1{ background-position:0 bottom;}
 #pw_check_2{ background-position:-150px bottom;}
 #pw_check_3{ background-position:-300px bottom;}
 .table_reg{ text-align:left; padding:6px 30px; font-size:14px; font-weight:bold; border-bottom:1px solid #BFF1FF; margin:10px auto; width:98%;}
 .table_reg td{ padding:8px 5px;}
-.table_reg caption{text-align:left;	padding:6px 30px; font-size:14px; font-weight:bold;	background:url(/skin/images/login_bg.gif) no-repeat -1px -77px; border-bottom:1px solid #8da7c4; margin:10px auto 0;}
+.table_reg caption{text-align:left;	padding:6px 30px; font-size:14px; font-weight:bold;	background:url() no-repeat -1px -77px; border-bottom:1px solid #8da7c4; margin:10px auto 0;}
 </style>
 </head>
 <body>

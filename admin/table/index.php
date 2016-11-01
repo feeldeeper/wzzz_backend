@@ -13,9 +13,9 @@ if(isset($suid) && $suid!="" && $suid!="0")
 else{ echo "<script>alert('请先登录!');window.location='../login.php';</script>";exit();}
 $username = $_SESSION['adminname'];
 // $uid = $_GET['id'];
-// $user = $DB->Select("select * from user where id = $uid");
+// $user = $database->query("select * from user where id = $uid");
 // $user = $user[0];
-$tb = $DB->Select("select * from tablet where status=1");
+$tb = $database->query("select * from tablet where status=1");
 
 
 ?>

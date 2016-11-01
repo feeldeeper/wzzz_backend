@@ -2,8 +2,6 @@
 header("Content-type: text/html; charset=utf-8");
 include("../inc/function.php");
 include("../inc/conn.php");
-include("../inc/sql.class.php");
-$DB = new MySql($conn);
 session_set_cookie_params(SESSION_LIFE_TIME);
 session_start();
 $uid = $_SESSION['uid'];

@@ -16,11 +16,10 @@ if(isset($_POST['dosubmit']) && $_POST['dosubmit']!="")
 	$oldPassword = md5($_POST['oldPassword']);
 	$newPassword = md5($_POST['newPassword']);
 	$query = "select * from user where password='$oldPassword' and id =$uid";
-	$result = mysql_query($query,$conn);
-	if(mysql_num_rows($result)>0)
-	{
+    $row = $database->query($query)->fetch();
+    if($row){
 		$query = "update user set password='$newPassword' where id =$uid";
-		mysql_query($query,$conn);
+        $database->query($query);
 		echo "<script>alert('密码修改成功!');</script>";
 	}else{
 		echo "<script>alert('旧密码不匹配!');history.back(-1);</script>";exit();
@@ -41,14 +40,14 @@ if(isset($_POST['dosubmit']) && $_POST['dosubmit']!="")
 #password_notice{color:red}
 .table_list th{ line-height:16px; height:16px}
 /*密码强度判定*/
-.pw_check { width:150px; background:url(/skin/images/pw_check.gif)  no-repeat; height:20px;}
+.pw_check { width:150px; background:url()  no-repeat; height:20px;}
 .pw_check span { width:50px; height:14px; line-height:14px; margin-bottom:6px; text-align:center; display:block; float:left;}
 #pw_check_1{ background-position:0 bottom;}
 #pw_check_2{ background-position:-150px bottom;}
 #pw_check_3{ background-position:-300px bottom;}
 .table_reg{ text-align:left; padding:6px 30px; font-size:14px; font-weight:bold; border-bottom:1px solid #BFF1FF; margin:10px auto; width:98%;}
 .table_reg td{ padding:8px 5px;}
-.table_reg caption{text-align:left;	padding:6px 30px; font-size:14px; font-weight:bold;	background:url(/skin/images/login_bg.gif) no-repeat -1px -77px; border-bottom:1px solid #8da7c4; margin:10px auto 0;}
+.table_reg caption{text-align:left;	padding:6px 30px; font-size:14px; font-weight:bold;	background:url() no-repeat -1px -77px; border-bottom:1px solid #8da7c4; margin:10px auto 0;}
 </style>
 </head>
 <body>

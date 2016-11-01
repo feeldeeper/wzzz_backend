@@ -8,7 +8,7 @@ if(isset($_GET['action']) && $_GET['action']!="")
 	{
 		$id = $_GET["id"];
 		$sql="delete from admin where id = $id";
-		mysql_query($sql,$conn);
+		$database->query($sql);
 		echo "<script>alert('已删除!');</script>";
 	}
 	elseif($action=="add")
@@ -16,10 +16,10 @@ if(isset($_GET['action']) && $_GET['action']!="")
 		$u = $_POST["username"];
 		$t = $_POST["tab"];
 		$p = md5($_POST["psw"]);
-		if(!existuser($u,$conn))
+		if(!existuser($u,$database))
 		{
 			$sql="insert into admin(username,password,phone) values('$u','$p','$t')";
-			mysql_query($sql,$conn);
+			$database->query($sql);
 		}else{
 			echo "<script>alert('用户名已存在!');history.back(-1);</script>";
 		}
@@ -29,11 +29,10 @@ if(isset($_GET['action']) && $_GET['action']!="")
 	
 }  
 
-function existuser($username,$conn)
+function existuser($username,$database)
 {
 	$sql="select * from admin where username='$username'";
-	$query = mysql_query($sql,$conn);
-	if($row = mysql_fetch_array($query))
+	if($row = $database->query($sql)->fetch())
 	{
 		return true;
 	}
@@ -45,12 +44,12 @@ function existuser($username,$conn)
 	
 } 
 
-function getalllast($conn)
+function getalllast($database)
 {
 	$text="";
 	$sql="select * from `admin`";
-	$query = mysql_query($sql,$conn);
-	while($row = mysql_fetch_array($query))
+	$result = $database->query($sql)->fetchAll();
+	foreach($result as $row)
 	{ 
 		$phone=$row["phone"];
 		if($phone=="0")
@@ -89,7 +88,7 @@ function getalllast($conn)
 <div id="q">
  <table border="1" cellpadding="0" cellspacing="0">
  <tr><th>ID</th><th>用户名</th><th>控制台号</th><th>操作</th></tr>
-<?php echo getalllast($conn);?>
+<?php echo getalllast($database);?>
  </table>
  </div>
 </div>

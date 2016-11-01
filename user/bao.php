@@ -3,11 +3,11 @@ header("Content-type: text/html; charset=utf-8");
 include("inc/conn.php");
  
 
-function getinjecttype($id,$conn)
+function getinjecttype($id,$database)
 {
 	$sql="select * from `type` where tid=$id";
-	$query = mysql_query($sql,$conn);
-	if($row = mysql_fetch_array($query))
+	$row = $database->query($sql)->fetch();
+	if($row)
 	{ 
 		$arr=array(str_replace(".00","",$row['rate']),$row['type']);
 	}
@@ -17,11 +17,11 @@ function getinjecttype($id,$conn)
 	return $arr;
 }
 
-function getresult($id,$conn)
+function getresult($id,$database)
 {
 	$sql="select * from `result` where rid=$id";
-	$query = mysql_query($sql,$conn);
-	if($row = mysql_fetch_array($query))
+	$row = $database->query($sql)->fetch();
+	if($row)
 	{ 
 		$arr=$row['result'];
 	}
@@ -31,11 +31,11 @@ function getresult($id,$conn)
 	return $arr;
 }
 
-function getusername($id,$conn)
+function getusername($id,$database)
 {
 	$sql="select * from `user` where id=$id";
-	$query = mysql_query($sql,$conn);
-	if($row = mysql_fetch_array($query))
+	$row = $database->query($sql)->fetch();
+	if($row)
 	{ 
 		$arr=$row['username'];
 	}
@@ -90,27 +90,28 @@ table.altrowstable td {
  <table class="altrowstable">
  <tr style="background:#BFD5FD"><th>用户名</th><th>下注金额</th><th>局编号</th><th>下注日期</th><th>下注</th><th>开奖结果</th><th>结果</th><th>倍率</th><th>利润</th></tr>
 <?php 
-$id=$_GET['id'];
-if(isset($id) && $id!="")
+
+if(!empty($_GET['id']))
 {
+	$id=$_GET['id'];
 	$sql="select * from `injectresult` as i,`round` as r where uid=$id and syh<>-1 and r.rid=i.rid order by injecttime desc";
-	$query = mysql_query($sql,$conn);
+	$result = $database->query($sql)->fetchAll();
 	$i=0;
 	$wint=0;
 	$winm=0;
 	$loset=0;
 	$losem=0;
 	$he=0;
-	while($row = mysql_fetch_array($query))
+	foreach($result as $row)
 	{ 	 
 		$i++;
 		if($i%2==1)
 			$color="oddrowcolor";
 		else
 			$color="evenrowcolor";
-		$type=getinjecttype($row['injecttype'],$conn);
-		$result=getresult($row['result'],$conn);
-		$username=getusername($id,$conn);
+		$type=getinjecttype($row['injecttype'],$database);
+		$result=getresult($row['result'],$database);
+		$username=getusername($id,$database);
 		$syh=$row['syh'];
 		$winmoney=floatval($row['winmoney']);
 		if($syh=='0')

@@ -1,181 +1,186 @@
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title></title>
-<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-<link href="/skin/system.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="/skin/blue/style.css" type="text/css" media="print, projection, screen" />
-<script type="text/javaScript" src="/js/jquery.js"></script>
-<script type="text/javaScript" src="/js/common.js"></script>
-<script type="text/javaScript" src="/js/jquery.tablesorter.min.js"></script>
-<title></title>
-<style type="text/css">
-.table_list td{ text-align:center}
-</style>
-<script type="text/javascript">
-window.onerror = function(){
-    return true;
-}
-$(function() {
-	$("#listTable").tablesorter({sortList:[[5,1]]});
-});
-function act(url, flag){
-	switch (flag) {
-		default:
-			str = "È·¶¨ÒªÕâÑù×öÂğ£¿"
-			break;
-		case 2:
-			str = "Èç¹ûÉ¾³ıÉÏ¼¶µÄ»°£¬ÄÇËûÏÂ¼¶µÄËùÓĞ»áÔ±ºÍ´úÀí¶¼»á±»É¾³ı£¡\nµ«ÊÇ±¨±íºÍÓÎÏ·Êı¾İ²»»áÉ¾³ı£¡";
-			break;
-		case 3:
-			str = "Èç¹ûÌß³öµÄÊÇ»áÔ±µÄ»°£¬ĞèµÈÏÂÒ»¾ÖÓÎÏ·¿ªÊ¼²Å×Ô¶¯ÉúĞ§£¡\nÈ·¶¨ÒªÌß³öÂğ£¿£¡";
-			break;
-	}
-	if(flag > 0){
-		var bln = window.confirm(str);
-		if(bln != false){
-			document.myform.action = url;
-			$("#myform").submit();
-		}
-	}
-}
-function checkPost(){
-	
-}
-</script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+    <link href="/skin/system.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/skin/blue/style.css" type="text/css" media="print, projection, screen"/>
+    <script type="text/javaScript" src="/js/jquery.js"></script>
+    <script type="text/javaScript" src="/js/common.js"></script>
+    <script type="text/javaScript" src="/js/jquery.tablesorter.min.js"></script>
+    <title></title>
+    <style type="text/css">
+        .table_list td {
+            text-align: center
+        }
+    </style>
+    <script type="text/javascript">
+        window.onerror = function () {
+            return true;
+        }
+        $(function () {
+            $("#listTable").tablesorter({sortList: [[5, 1]]});
+        });
+        function act(url, flag) {
+            switch (flag) {
+                default:
+                    str = "ç¡®å®šè¦è¿™æ ·åšå—ï¼Ÿ"
+                    break;
+                case 2:
+                    str = "å¦‚æœåˆ é™¤ä¸Šçº§çš„è¯ï¼Œé‚£ä»–ä¸‹çº§çš„æ‰€æœ‰ä¼šå‘˜å’Œä»£ç†éƒ½ä¼šè¢«åˆ é™¤ï¼\nä½†æ˜¯æŠ¥è¡¨å’Œæ¸¸æˆæ•°æ®ä¸ä¼šåˆ é™¤ï¼";
+                    break;
+                case 3:
+                    str = "å¦‚æœè¸¢å‡ºçš„æ˜¯ä¼šå‘˜çš„è¯ï¼Œéœ€ç­‰ä¸‹ä¸€å±€æ¸¸æˆå¼€å§‹æ‰è‡ªåŠ¨ç”Ÿæ•ˆï¼\nç¡®å®šè¦è¸¢å‡ºå—ï¼Ÿï¼";
+                    break;
+            }
+            if (flag > 0) {
+                var bln = window.confirm(str);
+                if (bln != false) {
+                    document.myform.action = url;
+                    $("#myform").submit();
+                }
+            }
+        }
+        function checkPost() {
+
+        }
+    </script>
 </head>
 <body>
-<DIV id=position2><STRONG>µ±Ç°Î»ÖÃ£º</STRONG>
-<A href='/report/live/index/stime/2015-07-21+08%3A00%3A00/etime/2015-07-22+08%3A00%3A00'></A></DIV>
+<DIV id=position2><STRONG>å½“å‰ä½ç½®ï¼š</STRONG>
+    <A href='/report/live/index/stime/2015-07-21+08%3A00%3A00/etime/2015-07-22+08%3A00%3A00'></A></DIV>
 <table cellpadding="0" cellspacing="1" class="table_info">
-<caption>¿ì½İ²Ù×÷</caption>
+    <caption>å¿«æ·æ“ä½œ</caption>
     <tr>
-		<td>
-<input type='button' class="button_style" onclick='history.go(-1);' value='·µ»ØÖÁÉÏÒ»Ò³'>
-<input type='button' class="button_style" onclick='history.go(1);' value='Ç°½øÖÁÏÂÒ»Ò³'>
-<input type='button' class="button_style" onclick='location.reload();' value='Ë¢ĞÂ±¾Ò³'>
-	  </td>
-	</tr>
+        <td>
+            <input type='button' class="button_style" onclick='history.go(-1);' value='è¿”å›è‡³ä¸Šä¸€é¡µ'>
+            <input type='button' class="button_style" onclick='history.go(1);' value='å‰è¿›è‡³ä¸‹ä¸€é¡µ'>
+            <input type='button' class="button_style" onclick='location.reload();' value='åˆ·æ–°æœ¬é¡µ'>
+        </td>
+    </tr>
     <tr>
-    	<td>
-°´ÓÃ»§Ãû²éÑ¯£º
-  <input name="userName" type="text" id="userName" onKeyDown="if(event.keyCode==13) {go();}" value="" size="20"/>
-<link rel="stylesheet" type="text/css" href="/js/calendar/calendar-blue.css"/>
-<script type="text/javascript" src="/js/calendar/calendar.js"></script>
-¿ªÊ¼Ê±¼ä£º<input name="sTime" type="text" id="sTime" value="2015-07-21 08:00:00" size="18" />
-  ½áÊøÊ±¼ä£º
-  <input name="eTime" type="text" id="eTime" value="2015-07-22 08:00:00" size="18" />
-  <input type='button' class="button_style" onclick="go()" value="È·¶¨ËÑË÷">
-<a href="javascript:settime('2015-08-03 08:00:00','2015-08-10 08:00:00')">ÉÏÖÜ</a> <a href="javascript:settime('2015-08-13 08:00:00','2015-08-14 08:00:00')">×òÌì</a> <a href="javascript:settime('2015-08-14 08:00:00','2015-08-15 08:00:00')">µ±ÈÕ</a> <a href="javascript:settime('2015-08-10 08:00:00','2015-08-17 08:00:00')">±¾ÖÜ</a> <a href="javascript:settime('2015-08-03 08:00:00','2015-09-07 08:00:00')">±¾ÔÂ</a>
-      </td>
+        <td>
+            æŒ‰ç”¨æˆ·åæŸ¥è¯¢ï¼š
+            <input name="userName" type="text" id="userName" onKeyDown="if(event.keyCode==13) {go();}" value=""
+                   size="20"/>
+            <link rel="stylesheet" type="text/css" href="/js/calendar/calendar-blue.css"/>
+            <script type="text/javascript" src="/js/calendar/calendar.js"></script>
+            å¼€å§‹æ—¶é—´ï¼š<input name="sTime" type="text" id="sTime" value="2015-07-21 08:00:00" size="18"/>
+            ç»“æŸæ—¶é—´ï¼š
+            <input name="eTime" type="text" id="eTime" value="2015-07-22 08:00:00" size="18"/>
+            <input type='button' class="button_style" onclick="go()" value="ç¡®å®šæœç´¢">
+            <a href="javascript:settime('2015-08-03 08:00:00','2015-08-10 08:00:00')">ä¸Šå‘¨</a> <a
+                href="javascript:settime('2015-08-13 08:00:00','2015-08-14 08:00:00')">æ˜¨å¤©</a> <a
+                href="javascript:settime('2015-08-14 08:00:00','2015-08-15 08:00:00')">å½“æ—¥</a> <a
+                href="javascript:settime('2015-08-10 08:00:00','2015-08-17 08:00:00')">æœ¬å‘¨</a> <a
+                href="javascript:settime('2015-08-03 08:00:00','2015-09-07 08:00:00')">æœ¬æœˆ</a>
+        </td>
     </tr>
 </table>
 
 <table cellpadding="0" cellspacing="1" class="table_list" id="listTable">
-<caption>
-°Ù¼ÒÀÖ»áÔ±±¨±í
-</caption>
-<thead>
-<tr align="center">
-  <th>&nbsp;</th>
-	<th>ÓÃ»§Ãû</th>
-	<th>±ğÃû</th>
-    <th>Í¶×¢´ÎÊı</th>
-	<th>Í¶×¢½ğ¶î</th>
-	<th>ÊäÓ®½ğ¶î</th>
-	<th>Ï´ÂëÁ¿</th>
-	<th>Ï´Âë±È(%)</th>
-	<th>Ï´ÂëÓ¶½ğ</th>
-	<th>×Ü½ğ¶î</th>
-	</tr>
-</thead>
-<tbody>
-</tbody>
-<tfoot>
-<tr align="center" id="total_listTable" class="total">
-  <th>ºÏ¼Æ</th>
-  <th>&nbsp;</th>
-  <th>&nbsp;</th>
-  <th>&nbsp;</th>
-  <th>&nbsp;</th>
-  <th>&nbsp;</th>
-  <th>&nbsp;</th>
-  <th>&nbsp;</th>
-  <th>&nbsp;</th>
-  <th>&nbsp;</th>
-  </tr>
-</tfoot>
+    <caption>
+        ç™¾å®¶ä¹ä¼šå‘˜æŠ¥è¡¨
+    </caption>
+    <thead>
+    <tr align="center">
+        <th>&nbsp;</th>
+        <th>ç”¨æˆ·å</th>
+        <th>åˆ«å</th>
+        <th>æŠ•æ³¨æ¬¡æ•°</th>
+        <th>æŠ•æ³¨é‡‘é¢</th>
+        <th>è¾“èµ¢é‡‘é¢</th>
+        <th>æ´—ç é‡</th>
+        <th>æ´—ç æ¯”(%)</th>
+        <th>æ´—ç ä½£é‡‘</th>
+        <th>æ€»é‡‘é¢</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+    <tfoot>
+    <tr align="center" id="total_listTable" class="total">
+        <th>åˆè®¡</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+    </tr>
+    </tfoot>
 </table>
-<div style="margin:5px; float:left"><input type='button' class="button_style" onclick="window.print()" value="´òÓ¡"></div>
+<div style="margin:5px; float:left"><input type='button' class="button_style" onclick="window.print()" value="æ‰“å°"></div>
 <script type="text/javascript">
-date = new Date();
-Calendar.setup({
-	inputField     :    "sTime",
-	ifFormat       :    "%Y-%m-%d %H:%M:%S",
-	showsTime      :    true,
-	align          :    "B1",
-	singleClick    :    true
-});
-Calendar.setup({
-	inputField     :    "eTime",
-	ifFormat       :    "%Y-%m-%d %H:%M:%S",
-	showsTime      :    true,
-	align          :    "B1",
-	singleClick    :    true
-});
-function settime(time1,time2){
-	$("#sTime").val(time1);
-	$("#eTime").val(time2);
-	go(0);
-}
-function setKeyWord(obj){
-	$("#keyWord").val(obj.innerHTML);
-	go(0);
-}
-function go(page){
-	var userName = $("#userName").val();
-	var userId = getUrlQuery('id', 3);
-	if (userName != '') {
-		var url = "/report/live/search/key/"+$("#userName").val()+"/stime/"+$("#sTime").val()+"/etime/"+$("#eTime").val()+"/type/0";
-	} else {
-		var url = "/report/live/member/id/"+userId+"/stime/"+$("#sTime").val()+"/etime/"+$("#eTime").val()+"/type/0";
-	}
-	redirect(url);
-}
-function getResult(id, num)
-  {
-   var result = 0;
-   var list =  $('#'+id+' tbody td:nth-child('+num+')');
-    $.each(list,function(i,n)
-	{
-		result +=  parseFloat(n.innerText);
-	});
-	return result;
-  }
-printTotal('listTable', 12);
-printTotal('listTable', 4);
-printTotal('listTable', 5);
-printTotal('listTable', 6);
-printTotal('listTable', 7);
-printTotal('listTable', 9);
-printTotal('listTable', 10);
-function printTotal(obj, num){
-	var val = getResult(obj, num);
-	$('#total_' + obj).find('th').eq(num - 1).text(val);
-}
-//$("#pTotal").html(getResult('listTable', 11));
+    date = new Date();
+    Calendar.setup({
+        inputField: "sTime",
+        ifFormat: "%Y-%m-%d %H:%M:%S",
+        showsTime: true,
+        align: "B1",
+        singleClick: true
+    });
+    Calendar.setup({
+        inputField: "eTime",
+        ifFormat: "%Y-%m-%d %H:%M:%S",
+        showsTime: true,
+        align: "B1",
+        singleClick: true
+    });
+    function settime(time1, time2) {
+        $("#sTime").val(time1);
+        $("#eTime").val(time2);
+        go(0);
+    }
+    function setKeyWord(obj) {
+        $("#keyWord").val(obj.innerHTML);
+        go(0);
+    }
+    function go(page) {
+        var userName = $("#userName").val();
+        var userId = getUrlQuery('id', 3);
+        if (userName != '') {
+            var url = "/report/live/search/key/" + $("#userName").val() + "/stime/" + $("#sTime").val() + "/etime/" + $("#eTime").val() + "/type/0";
+        } else {
+            var url = "/report/live/member/id/" + userId + "/stime/" + $("#sTime").val() + "/etime/" + $("#eTime").val() + "/type/0";
+        }
+        redirect(url);
+    }
+    function getResult(id, num) {
+        var result = 0;
+        var list = $('#' + id + ' tbody td:nth-child(' + num + ')');
+        $.each(list, function (i, n) {
+            result += parseFloat(n.innerText);
+        });
+        return result;
+    }
+    printTotal('listTable', 12);
+    printTotal('listTable', 4);
+    printTotal('listTable', 5);
+    printTotal('listTable', 6);
+    printTotal('listTable', 7);
+    printTotal('listTable', 9);
+    printTotal('listTable', 10);
+    function printTotal(obj, num) {
+        var val = getResult(obj, num);
+        $('#total_' + obj).find('th').eq(num - 1).text(val);
+    }
+    //$("#pTotal").html(getResult('listTable', 11));
 </script>
 <table cellpadding="0" cellspacing="1" class="table_info">
-  <caption>±¨±í¿ªÊ¼¡¢½áÊøÊ±¼äÌáÊ¾ĞÅÏ¢</caption>
-  <tr>
-    <td>
-1¡¢Ã¿Ìì£º¿ªÊ¼Ê±¼äÊÇ´ÓÖĞÎç12µãÕûÖÁµÚ¶şÌìÖĞÎç11µã59·Ö59Ãë£¬ÆäËûÊ±¼ä¶ÎÒ²ÊÇ°´´Ë¸ñÊ½¡£<br />
-2¡¢Ã¿ÖÜ£º´Óµ±Ç°Ê±¼äËùÔÚÖÜµÄÖÜÒ»ÖÁÖÜÈÕ¡£<br />
-3¡¢Ã¿ÔÂ£º´Óµ±Ç°Ê±¼äËùÔÚÔÂµÄµÚÒ»ÖÜµÄĞÇÆÚÒ»ÍùºóÍÆËã4¸öĞÇÆÚµÄĞÇÆÚÒ»¡£
-	</td>
-  </tr>
+    <caption>æŠ¥è¡¨å¼€å§‹ã€ç»“æŸæ—¶é—´æç¤ºä¿¡æ¯</caption>
+    <tr>
+        <td>
+            1ã€æ¯å¤©ï¼šå¼€å§‹æ—¶é—´æ˜¯ä»ä¸­åˆ12ç‚¹æ•´è‡³ç¬¬äºŒå¤©ä¸­åˆ11ç‚¹59åˆ†59ç§’ï¼Œå…¶ä»–æ—¶é—´æ®µä¹Ÿæ˜¯æŒ‰æ­¤æ ¼å¼ã€‚<br/>
+            2ã€æ¯å‘¨ï¼šä»å½“å‰æ—¶é—´æ‰€åœ¨å‘¨çš„å‘¨ä¸€è‡³å‘¨æ—¥ã€‚<br/>
+            3ã€æ¯æœˆï¼šä»å½“å‰æ—¶é—´æ‰€åœ¨æœˆçš„ç¬¬ä¸€å‘¨çš„æ˜ŸæœŸä¸€å¾€åæ¨ç®—4ä¸ªæ˜ŸæœŸçš„æ˜ŸæœŸä¸€ã€‚
+        </td>
+    </tr>
 </table>
 </body>
 </html>

@@ -5,17 +5,14 @@
 	session_start();
 	$today = date("Y-m-d H:i:s",time()-1900);
 	$query = "update user set lastlogintime='$today' where lastlogintime>'$today' and id=".$_SESSION['uid'];
-	mysql_query($query,$conn);
+	$database->query($query);
 
 	if(session_is_registered("isadmin") && session_is_registered("adminname"))
-	{ 
+	{
 		session_unregister("isadmin");
-
 		session_unregister("adminname");
-
-		unset($_SESSION['isadmin']);
-
-		unset($_SESSION['adminname']); 
+		session_unregister("admintab");
+		session_unregister("uid");
 
 	}
 	

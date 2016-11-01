@@ -10,10 +10,10 @@ if(isset($_GET['c']) && $_GET['c']!="" && isset($_GET['t']) && $_GET['t']!="")
 	
 	$today = date("Y-m-d",time())." 00:00:00";
 	$sql = "select SQL_CACHE * from `round` where createtime>='$today' and tab_id='$t' and gameBoot='$chang' and result<>-1 order by rid asc";
-	$result = mysql_query($sql,$conn);  
-	if(mysql_num_rows($result))
+	$result = $database->query($sql)->fetchAll();
+	if($result)
 	{
-		while($row=mysql_fetch_array($result))
+		foreach($result as $row)
 		{
 			$letter = getletter(intval($row['result']));
 			$record.=$letter;

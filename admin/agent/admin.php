@@ -13,9 +13,9 @@ if(isset($suid) && $suid!="" && $suid!="0")
 else{ echo "<script>alert('请先登录!');window.location='../login.php';</script>";exit();}
 $username = $_SESSION['adminname'];
 $uid = isset($_GET['id']) ? $_GET['id'] : '';
-$user = $DB->Select("select * from user where id = 1");
+$user = $database->query("select * from user where id = 1");
 $user = $user[0];
-$agent = $DB->Select("select * from user where type =1");
+$agent = $database->query("select * from user where type =1");
 
 
 ?>

@@ -1,21 +1,21 @@
-<?php 
-$username = $_GET['username'];
-$pwd = $_GET['pwd'];
-if(!isset($username))
-	$username="";
-if(!isset($pwd))
-	$pwd="";
+<?php
+if(isset($_GET['username']))
+	$username=$_GET['username'];
 else
-	$pwd=md5($pwd);
+	$username = '';
+if(isset($_GET['pwd']))
+	$pwd=md5($_GET['pwd']);
+else
+	$pwd='';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-<meta name="keywords" content="ÍõÕßÖÁ×ğ ÍõÕßÖÁ×ğÈıºÏÒ» ÍõÕßÖÁ×ğ¿ª»§ ÍõÕßÖÁ×ğ¹Ù·½ÍøÕ¾ ÍõÕßÖÁ×ğ¹Ù·½ĞÅÓşµ£±£ ÍõÕßÖÁ×ğ»áÔ± ÍõÕßÖÁ×ğ´úÀí ÍõÕßÖÁ×ğµç»°">
-<meta name="description" content="ÍõÕßÖÁ×ğ ÍõÕßÖÁ×ğÈıºÏÒ» ¹Ù·½ÍøÕ¾£¬ÊÇÎ¨Ò»¿ÉÏÖ³¡µç»°ÑéÖ¤µÄ¹Ù·½ÍøÉÏÍÆ¹ãÆ½Ì¨£¬¹Ù·½ĞÅÓşµ£±££¬´ó¶îÎŞÓÇ£¬¼ÙÒ»Åâ°Ù£¡Äú¿ÉÖÂµçÖ¸¶¨ÎÒÃÇµ½ÏÖ³¡Ì¨ÃæÑéÖ¤ÊÓÆµÕæ¼Ù£¬²»ÏŞ´ÎÊı¡£">
+<meta name="keywords" content="ç‹è€…è‡³å°Š ç‹è€…è‡³å°Šä¸‰åˆä¸€ ç‹è€…è‡³å°Šå¼€æˆ· ç‹è€…è‡³å°Šå®˜æ–¹ç½‘ç«™ ç‹è€…è‡³å°Šå®˜æ–¹ä¿¡èª‰æ‹…ä¿ ç‹è€…è‡³å°Šä¼šå‘˜ ç‹è€…è‡³å°Šä»£ç† ç‹è€…è‡³å°Šç”µè¯">
+<meta name="description" content="ç‹è€…è‡³å°Š ç‹è€…è‡³å°Šä¸‰åˆä¸€ å®˜æ–¹ç½‘ç«™ï¼Œæ˜¯å”¯ä¸€å¯ç°åœºç”µè¯éªŒè¯çš„å®˜æ–¹ç½‘ä¸Šæ¨å¹¿å¹³å°ï¼Œå®˜æ–¹ä¿¡èª‰æ‹…ä¿ï¼Œå¤§é¢æ— å¿§ï¼Œå‡ä¸€èµ”ç™¾ï¼æ‚¨å¯è‡´ç”µæŒ‡å®šæˆ‘ä»¬åˆ°ç°åœºå°é¢éªŒè¯è§†é¢‘çœŸå‡ï¼Œä¸é™æ¬¡æ•°ã€‚">
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-<title>ÍõÕßÖÁ×ğ ÍõÕßÖÁ×ğÈıºÏÒ» ¹Ù·½ÍøÕ¾</title>
+<title>ç‹è€…è‡³å°Š ç‹è€…è‡³å°Šä¸‰åˆä¸€ å®˜æ–¹ç½‘ç«™</title>
 <link rel="stylesheet" href="/user/css/records.css" type="text/css" />
 <script type="text/javascript" src="/user/js/jquery.js"></script>
 </head>
@@ -23,18 +23,18 @@ else
 <div id="main">
 	<div id="top">
 		<div id="tleft">
-			<div id="q1">ß^Íù½Y¹û
+			<div id="q1">éå¾€çµæœ
 			</div>
-			<div id="q2"><span id="qsta">”µ“ş¼ÓİdÖĞ...</span>
+			<div id="q2"><span id="qsta">æ•¸æ“šåŠ è¼‰ä¸­...</span>
 			</div>
 		</div>
 		
 		<div id="tright">
 			<div id="q5">
-			<input type="button" onclick="jsonRefresh()" value="Ë¢ĞÂÊı¾İ"/>
+			<input type="button" onclick="jsonRefresh()" value="åˆ·æ–°æ•°æ®"/>
 			</div>
 			
-			<div id="q3">ÈÕÆÚ</div>	
+			<div id="q3">æ—¥æœŸ</div>	
 			
 			<div id="q4">
 				<div class="zselect">
@@ -47,7 +47,7 @@ else
 				</div>
 			</div>
 			
-			<div id="q3">Ò³Êı
+			<div id="q3">é¡µæ•°
 			</div>
 			<div id="q6">
 			<input class="pagestart" onclick="jsonRefresh()" type="button" value=""/>
@@ -61,24 +61,24 @@ else
 			<input class="pageend" onclick="jsonRefresh()" type="button" value=""/>
 			</div>
 			<div id="q7">
-			<input type="button"  value="¹Ø±Õ"/>
+			<input type="button"  value="å…³é—­"/>
 			</div>
 		</div>
 	</div>
 	<div id="bottom">
 	<table cellspacing="1" cellpadding="0" >
 		<tr style="background:#b6b6b6;color:#0b333c;">
-			<td>Í¶×¢¾´a</td>
-			<td>ÈÕÆÚ</td>
-			<td>•rég</td>
-			<td>ß[‘ò</td>
-			<td>Å_</td>
-			<td>¾Ö”µ</td>
-			<td>½Y¹û</td>
-			<td>Í¶×¢´a</td>
-			<td>Í¶×¢î~</td>
-			<td>İ”/ÚA</td>
-			<td> î‘B</td>
+			<td>æŠ•æ³¨ç·¨ç¢¼</td>
+			<td>æ—¥æœŸ</td>
+			<td>æ™‚é–“</td>
+			<td>éŠæˆ²</td>
+			<td>è‡º</td>
+			<td>å±€æ•¸</td>
+			<td>çµæœ</td>
+			<td>æŠ•æ³¨ç¢¼</td>
+			<td>æŠ•æ³¨é¡</td>
+			<td>è¼¸/è´</td>
+			<td>ç‹€æ…‹</td>
 		</tr>
 	</table>
 <div id='userList'>
@@ -120,7 +120,7 @@ else
 	
 	</div>
 </div>
-<script>
+<script type="text/javascript">
 	jsonRefresh();
     var lis = document.getElementsByClassName('zselect')[0].getElementsByTagName('li');
 
@@ -128,7 +128,6 @@ else
         lis[i].onclick = function(){
 
             if(this.parentNode.getAttribute('_zxs') == 'show'){
-                //for(var j = 0; j < lis.length; j++){ lis[j].className = '';}
                 for(var j = 0; j < lis.length; j++){ lis[j].style.display = 'none';
 				}
 				$("li").removeClass("on");
@@ -137,7 +136,6 @@ else
                 this.parentNode.setAttribute('_zxs','hide');
 				jsonRefresh();
             }else{
-                //for(var j = 0; j < lis.length; j++){ lis[j].className = 'on';}
                 for(var j = 0; j < lis.length; j++){ lis[j].style.display = 'block';}
 				$(".zselect").css("height","300px");
 				$(".zselect").css("overflow-y","auto");
@@ -149,7 +147,7 @@ else
 
 	
 function jsonRefresh(){
-$("#qsta").html("”µ“ş¼ÓİdÖĞ...");
+$("#qsta").html("æ•¸æ“šåŠ è¼‰ä¸­...");
 $.post("/user/recordjson.php", {username:$("#username").val(),pwd:$("#pwd").val(),date:$(".on").html()},
    function(data){
 	  $("#userList").html("");
@@ -196,9 +194,9 @@ $.post("/user/recordjson.php", {username:$("#username").val(),pwd:$("#pwd").val(
 		}
 	  }
 	  if(data.length==0)
-		$("#qsta").html("•ºŸo”µ“ş");
+		$("#qsta").html("æš«ç„¡æ•¸æ“š");
 	  else
-		$("#qsta").html("¼ÓİdÍê³É");
+		$("#qsta").html("åŠ è¼‰å®Œæˆ");
    }, 'json');
 }
 </script>

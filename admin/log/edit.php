@@ -14,7 +14,7 @@ else{ echo "<script>alert('请先登录!');window.location='../login.php';</scri
 $nid=1;if(isset($_GET['id']) && $_GET['id']!="") $nid = $_GET['id'];
 
 
-$notice = $DB->Select("select * from notice where id = $nid");
+$notice = $database->query("select * from notice where id = $nid");
 $notice = $notice[0];
 
 if(isset($_POST['dosubmit']) && $_POST['dosubmit']!="")
@@ -28,7 +28,7 @@ if(isset($_POST['dosubmit']) && $_POST['dosubmit']!="")
 	$game = $_POST['game'];
 	$stime = $_POST['stime'];
 	$etime = $_POST['etime'];
-	$DB->Query("update notice set title='$title',content='$content',game='$game',state='$state',stime='$stime',etime='$etime'  where id=$pid");
+	$database->query("update notice set title='$title',content='$content',game='$game',state='$state',stime='$stime',etime='$etime'  where id=$pid");
 	echo "<script>alert('修改成功！');window.location='/admin/log/notice.php'</script>";
 }
 

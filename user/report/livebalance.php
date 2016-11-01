@@ -2,8 +2,6 @@
 header("Content-type: text/html; charset=utf-8");
 include("../inc/function.php");
 include("../inc/conn.php");
-include("../inc/sql.class.php");
-$DB = new MySql($conn);
 session_set_cookie_params(SESSION_LIFE_TIME);
 session_start();
 $uid = $_SESSION['uid'];
@@ -12,9 +10,8 @@ $username = $_SESSION['adminname'];
 $key = $username;if(isset($_GET['userName'])){$key=$_GET['userName'];} 
 $stime = date('Y-m-d 08:00:00',strtotime('-1 days'));if(isset($_GET['stime']) && $_GET['stime']!=""){$stime=$_GET['stime'];}
 $etime = date('Y-m-d 08:00:00',time());if(isset($_GET['etime']) && $_GET['etime']!=""){$etime=$_GET['etime'];}
-$user = $DB->Select("select * from user where username = '$key'");
-$user = $user[0];
-if(!$DB->VerifyUserReport($admintab,$uid,$user['id']))
+$user = $database->query("select * from user where username = '$key'")->fetch();
+if(!$database->VerifyUserReport($admintab,$uid,$user['id']))
 {
 	echo "没有权限！";exit();
 }

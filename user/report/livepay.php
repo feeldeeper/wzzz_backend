@@ -2,8 +2,6 @@
 header("Content-type: text/html; charset=utf-8");
 include("../inc/function.php");
 include("../inc/conn.php");
-include("../inc/sql.class.php");
-$DB = new MySql($conn);
 session_set_cookie_params(SESSION_LIFE_TIME);
 session_start();
 $uid = $_SESSION['uid'];
@@ -12,14 +10,14 @@ $admintab = $_SESSION['admintab'];
 $key = $username;if(isset($_GET['userName'])){$key=$_GET['userName'];}
 $stime = date('Y-m-d 08:00:00',strtotime('-1 days'));if(isset($_GET['stime']) && $_GET['stime']!=""){$stime=$_GET['stime'];}
 $etime = date('Y-m-d 08:00:00',time());if(isset($_GET['etime']) && $_GET['etime']!=""){$etime=$_GET['etime'];}
-$user = $DB->Select("select * from user where username = '$key'");
+$user = $database->query("select * from user where username = '$key'");
 $user = $user[0];
 $puid = $user['id']; 
-if(!$DB->VerifyUserReport($admintab,$uid,$puid))
+if(!$database->VerifyUserReport($admintab,$uid,$puid))
 {
 	echo "没有权限！";exit();
 }
-$result = $DB->Select("select * from moneylog where createdate>='$stime' and createdate<='$etime' and uid=$puid ");
+$result = $database->query("select * from moneylog where createdate>='$stime' and createdate<='$etime' and uid=$puid ");
 $upmoney = 0;
 $downmoney = 0; 
 foreach($result as $re)

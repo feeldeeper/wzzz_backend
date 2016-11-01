@@ -13,11 +13,11 @@ if(isset($uid) && $uid!="" && $uid!="0")
 else{ echo "<script>alert('请先登录!');window.location='../login.php';</script>";exit();}
 $id=1;if(isset($_GET['id']) && $_GET['id']!="") $id = $_GET['id'];
 
-$user = $DB->Select("select * from user where id = $id");
+$user = $database->query("select * from user where id = $id");
 $user = $user[0];
 
 $aid=$user['pid'];
-$topuser = $DB->Select("select * from user where id = $aid");
+$topuser = $database->query("select * from user where id = $aid");
 $topuser = $topuser[0];
 $ximalimit = 1.8;
 if($topuser['type']=="2" && $topuser['danshuangbian']=="0")
@@ -30,7 +30,7 @@ if(isset($_POST['dosubmit']) && $_POST['dosubmit']!="")
 	$pwd = md5($_POST['passWord']);
 	$lwash = $_POST['liveWash'];
 	$ximatype = $_POST['ximatype'];
-	$DB->Query("update user set nickName='$nname',password='$pwd',xima='$lwash',danshuangbian='$ximatype' where id=$pid");
+	$database->query("update user set nickName='$nname',password='$pwd',xima='$lwash',danshuangbian='$ximatype' where id=$pid");
 	echo "<script>alert('修改成功！');</script>";
 }
 

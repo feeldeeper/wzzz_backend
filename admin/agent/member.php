@@ -14,9 +14,9 @@ else{ echo "<script>alert('请先登录!');window.location='../login.php';</scri
 $username = $_SESSION['adminname'];
 
 $id=1;if(isset($_GET['id']) && $_GET['id']!="") $id = $_GET['id'];
-$user = $DB->Select("select * from user where id = $id");
+$user = $database->query("select * from user where id = $id");
 $user = $user[0];
-$member = $DB->Select("select * from user where pid = $id and type=3");
+$member = $database->query("select * from user where pid = $id and type=3");
 
 
 ?>

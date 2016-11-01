@@ -13,7 +13,7 @@ if(isset($uid) && $uid!="" && $uid!="0")
 else{ echo "<script>alert('请先登录!');window.location='../login.php';</script>";exit();}
 $id=1;if(isset($_GET['id']) && $_GET['id']!="") $id = $_GET['id'];
 $type='member';if(isset($_GET['type']) && $_GET['type']!="") $type = $_GET['type'];
-$user = $DB->Select("select * from user where id = $id");
+$user = $database->query("select * from user where id = $id");
 $user = $user[0];
 $ximalimit = 1.8;
 if($user['type']=="2" && $user['danshuangbian']=="0")
@@ -31,7 +31,7 @@ if(isset($_POST['dosubmit']) && $_POST['dosubmit']!="")
 	$lwash = $_POST['liveWash'];
 	$cdate = date("Y-m-d H:i:s");
 	$ximatype = $_POST['ximatype'];
-	$DB->Query("insert into user(nickName,money,currentmoney,password,username,ip,type,pid,logintimes,createdate,xima,danshuangbian) values('$nname','$lmoney','$lmoney','$pwd','$uname','152.124.124.132','$t','$pid','0','$cdate','$lwash','$ximatype')");
+	$database->query("insert into user(nickName,money,currentmoney,password,username,ip,type,pid,logintimes,createdate,xima,danshuangbian) values('$nname','$lmoney','$lmoney','$pwd','$uname','152.124.124.132','$t','$pid','0','$cdate','$lwash','$ximatype')");
 	
 	echo "<script>alert('添加成功！');</script>";
 }

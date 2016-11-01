@@ -13,7 +13,7 @@ if(isset($uid) && $uid!="" && $uid!="0")
 else{ echo "<script>alert('请先登录!');window.location='../login.php';</script>";exit();}
 $id=1;if(isset($_GET['id']) && $_GET['id']!="") $id = $_GET['id'];
 
-$tb = $DB->Select("select * from tablet where tab_id = $id");
+$tb = $database->query("select * from tablet where tab_id = $id");
 $tb = $tb[0];
 
 
@@ -27,7 +27,7 @@ if(isset($_POST['dosubmit']) && $_POST['dosubmit']!="")
 	$tieMax = $_POST['tieMax'];
 	$diffMax = $_POST['diffMax'];
 	$chip = $_POST['chip'];
-	$DB->Query("update tablet set injecttime='$djs',telMax='$telMax',telMin='$telMin',pairMax='$pairMax',tieMax='$tieMax',chip='$chip',diffMax='$diffMax' where tab_id=$tid");
+	$database->query("update tablet set injecttime='$djs',telMax='$telMax',telMin='$telMin',pairMax='$pairMax',tieMax='$tieMax',chip='$chip',diffMax='$diffMax' where tab_id=$tid");
 	echo "<script>alert('修改成功！');window.location='/admin/table/index.php?id=$tid';</script>";
 }
 

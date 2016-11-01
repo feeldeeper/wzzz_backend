@@ -16,38 +16,38 @@ if(isset($_POST['table']) && $_POST['table']!="")
 		$nt = date('mdHis',time());
 		$num=sprintf("%02d",$table).$ci."15".$nt;
 		$sql="insert into `round`(tab_id,gameNumber,gameState,gameBoot,roundNum,startTime,createtime,result) values('$table','$num','1','$chang','$ci','".getmicro()."','$ctime','-1')";	 
-		mysql_query($sql,$conn);
+		$database->query($sql);
 		$sql="update status set txt='".$table.",1"."' where id=1";
-		mysql_query($sql,$conn);
+		$database->query($sql);
 	}
 	elseif($status=='3')
 	{
-		$rid=getlast($table,$conn);
+		$rid=getlast($table,$database);
 		if($rid!="")
 		{
 			$sql="update `round` set gameState=3 where rid=".$rid;
-			mysql_query($sql,$conn);
+			$database->query($sql);
 			$sql="update status set txt='".$table.",3' where id=1";
-			mysql_query($sql,$conn);
+			$database->query($sql);
 		}		
 	}
 	elseif($status=='2')
 	{
 		$result=$_POST['result'];
-		$rid=getlast($table,$conn);
+		$rid=getlast($table,$database);
 		if($rid!="")
 		{
 			$sql="update `round` set gameState=0,result='$result' where rid=$rid";
-			mysql_query($sql,$conn);
+			$database->query($sql);
 			$sql="update status set txt='".$table.",".$rid."' where id=2";
-			mysql_query($sql,$conn);
+			$database->query($sql);
 			$sql="update status set txt='".$table.",0' where id=1";
-			mysql_query($sql,$conn);
+			$database->query($sql);
 			$sql="select * from injectresult where rid=$rid";
-			$query=mysql_query($sql,$conn);
-			if(mysql_num_rows($query))
+			$result=$database->query($sql)->fetchAll();
+			if($result)
 			{
-				while($row=mysql_fetch_array($query))
+				foreach($result as $row)
 				{
 					$injecttype=$row['injecttype'];
 					$injectmoney=$row['injectmoney'];
@@ -56,8 +56,8 @@ if(isset($_POST['table']) && $_POST['table']!="")
 					$syh=getsyh($injecttype,$result);
 					$winmoney=getwinmoney($injecttype,$syh,$injectmoney);
 					$sql2="update injectresult set syh='$syh',winmoney='$winmoney' where id=".$injectid;
-					mysql_query($sql2,$conn);
-					updatemoney($uid,$conn);
+					$database->query($sql2);
+					updatemoney($uid,$database);
 				}
 			}
 		}
@@ -66,15 +66,14 @@ if(isset($_POST['table']) && $_POST['table']!="")
 	echo "<script>alert('已提交!');</script>";
 }
 
-function updatemoney($uid,$conn)
+function updatemoney($uid,$database)
 {
-	$tsql = "SELECT winmoney,money from injectresult i,user u WHERE i.uid=$uid and i.uid=u.id"; 
-	$query=mysql_query($tsql,$conn);
+	$tsql = "SELECT winmoney,money from injectresult i,user u WHERE i.uid=$uid and i.uid=u.id";
+	$result = $database->query($tsql)->fetchAll();
 	$tmoney=0;
-	if(mysql_num_rows($query))
+	if($result)
 	{
-		
-		while($row=mysql_fetch_array($query))
+		foreach($result as $row)
 		{
 			$money=floatval($row['money']);
 			$tmoney=$tmoney+floatval($row['winmoney']);
@@ -82,7 +81,7 @@ function updatemoney($uid,$conn)
 		$tmoney+=$money;
 	}
 	$sql="update user set currentmoney='$tmoney' where id=$uid";
-	mysql_query($sql,$conn);
+	$database->query($sql);
 }
 
 function getwinmoney($i,$s,$m)
@@ -106,8 +105,6 @@ function getwinmoney($i,$s,$m)
 		else
 			return intval($m)*11;		
 	}
-	return '0';
-	
 }
 
 function getsyh($i,$r)
@@ -165,11 +162,11 @@ function getmicro()
 	return floatval($time);
 }
 
-function getlast($id,$conn)
+function getlast($id,$database)
 {
 	$sql="select * from `round` where tab_id=$id order by rid desc";
-	$query = mysql_query($sql,$conn);
-	if($row = mysql_fetch_array($query))
+	$row = $database->query($sql)->fetch();
+	if($row)
 	{
 		return $row['rid'];
 	}
@@ -177,13 +174,13 @@ function getlast($id,$conn)
 	return "";
 }
 
-function getalllast($conn)
+function getalllast($database)
 {
 	$text="";
 	for($i=1;$i<20;$i++){
 		$sql="select * from `round` where tab_id=$i order by rid desc";
-		$query = mysql_query($sql,$conn);
-		if($row = mysql_fetch_array($query))
+		$row = $database->query($sql)->fetch();
+		if($row)
 		{
 			if($row['gameState']=="1")
 				$s="投注中";
@@ -191,7 +188,7 @@ function getalllast($conn)
 				$s="投注结束";
 			else if($row['gameState']=='0')
 			{
-				$s="已有结果 ".getjieguo($row['result'],$conn);
+				$s="已有结果 ".getjieguo($row['result'],$database);
 			}
 			else
 				$s="洗牌中";
@@ -205,11 +202,11 @@ function getalllast($conn)
 	
 }
 
-function getjieguo($id,$conn)
+function getjieguo($id,$database)
 {
 	$sql="select * from result where rid=".$id;
-	$query = mysql_query($sql,$conn);
-	if($row=mysql_fetch_array($query))
+	$row = $database->query($sql)->fetch();
+	if($row)
 	{
 		return $row['result'];
 	}
@@ -246,9 +243,12 @@ $(document).ready(function() {
 <select name="table" style="width:120px;" >
 <?php 
 $arr=array(1,2,5,6,7,8,10,11,12,15);
+$table = isset($_POST['table']) ? $_POST['table'] : '1';
+$chang = isset($_POST['chang']) ? $_POST['chang'] : '1';
+$ci = isset($_POST['ci']) ? $_POST['ci'] : '1';
 for($i=0;$i<count($arr);$i++)
 {
-	if($arr[$i]==$_POST['table'])
+	if($arr[$i]==$table)
 		echo '<option value="'.$arr[$i].'" selected="selected">'.sprintf('%02d',$arr[$i]).'</option>';
 	else
 		echo '<option value="'.$arr[$i].'">'.sprintf('%02d',$arr[$i]).'</option>';
@@ -262,7 +262,7 @@ for($i=0;$i<count($arr);$i++)
 <option value="3">洗牌中</option>
 </select><br /><br />
 <div id="ok1" style="display:block;">
-场:<input name='chang' type="text" style="width:65px;" value="<?=$_POST['chang']?>"/> 次：<input name="ci" style="width:68px;" value="<?=$_POST['ci']?>"/><br/><br />
+场:<input name='chang' type="text" style="width:65px;" value="<?=$chang?>"/> 次：<input name="ci" style="width:68px;" value="<?=$ci?>"/><br/><br />
 </div>
 <div id="ok2" style="display:none;">
 输入结果:
@@ -285,6 +285,6 @@ for($i=0;$i<count($arr);$i++)
 
 </form>
 <span style="color:red;">
-<?php echo getalllast($conn);?>
+<?php echo getalllast($database);?>
 </span>
 </div>

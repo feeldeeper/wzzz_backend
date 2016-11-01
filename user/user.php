@@ -1,7 +1,7 @@
 <?php 
 header("Content-type: text/html; charset=utf-8");
 include("inc/conn.php");
-if(isset($_POST['username']) && $_POST['username']!="")
+if(!empty($_POST['username']))
 {
 	$username=$_POST['username'];
 	$psw=$_POST['psw'];
@@ -9,10 +9,10 @@ if(isset($_POST['username']) && $_POST['username']!="")
 	{
 		$psw=md5($psw);
 		$money=intval($_POST['money']); 
-		if(!existuser($username,$conn))
+		if(!existuser($username,$database))
 		{
 			$sql="insert into user(username,money,password,currentmoney) values('$username',$money,'$psw',$money)";
-			mysql_query($sql,$conn);
+			$database->query($sql);
 			echo "<script>alert('已提交!');</script>";
 		}
 		else
@@ -30,16 +30,17 @@ if(isset($_POST['username']) && $_POST['username']!="")
 if(isset($_GET['action']) && $_GET['action']=="del")
 {
 	$id=$_GET['id'];
-	$sql="delete from user where id=".$id;mysql_query($sql,$conn);
+	$sql="delete from user where id=".$id;
+	$database->query($sql);
 	echo "<script>alert('已删除!');</script>";
 }
 
 
-function existuser($username,$conn)
+function existuser($username,$database)
 {
 	$sql="select * from user where username='$username'";
-	$query = mysql_query($sql,$conn);
-	if($row = mysql_fetch_array($query))
+	$row = $database->query($sql)->fetch();
+	if($row)
 	{
 		return true;
 	}
@@ -51,12 +52,12 @@ function existuser($username,$conn)
 	
 } 
 
-function getalllast($conn)
+function getalllast($database)
 {
 	$text="";
 	$sql="select * from `user`";
-	$query = mysql_query($sql,$conn);
-	while($row = mysql_fetch_array($query))
+	$result = $database->query($sql)->fetchAll();
+	foreach($result as $row)
 	{ 
 		if($row['tableid']=="0")
 			$table="离台";
@@ -123,7 +124,7 @@ var obj;
 <div id="q">
  <table border="1" cellpadding="0" cellspacing="0">
  <tr><th>ID</th><th>用户名</th><th>充值金额</th><th>剩余金额</th><th>状态</th><th></th><th>操作</th></tr>
-<?php echo getalllast($conn);?>
+<?php echo getalllast($database);?>
  </table>
  </div>
 </div>

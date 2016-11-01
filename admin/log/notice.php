@@ -12,7 +12,7 @@ if(isset($suid) && $suid!="" && $suid!="0")
 }
 else{ echo "<script>alert('请先登录!');window.location='../login.php';</script>";exit();}
 
-$notice = $DB->Select("select * from notice");
+$notice = $database->query("select * from notice");
 
 
 ?>

@@ -9,11 +9,11 @@ if(isset($_GET['t']) && $_GET['t']!="" && isset($_GET['cc']) && $_GET['cc']!="")
 	$date=date("Y-m-d",time())." 00:00:00";
 	
 	$sql="select SQL_CACHE * from `round` where gameBoot='$cc[0]' and roundNum='$cc[1]' and createtime>'$date'";
-	$result = mysql_query($sql,$conn);
+	$result = $database->query($sql,$database);
 	$rid="";
-	if(mysql_num_rows($result))
+	if($result)
 	{
-		if($row=mysql_fetch_array($result))
+		if($row)
 		{
 			$rid=$row['rid'];
 		}
@@ -21,11 +21,11 @@ if(isset($_GET['t']) && $_GET['t']!="" && isset($_GET['cc']) && $_GET['cc']!="")
 	if($rid!="")
 	{
 		$sql = "select SQL_CACHE *  from `injectresult` where rid='$rid'";
-		$result = mysql_query($sql,$conn);  
-		if(mysql_num_rows($result))
+		$result = $database->query($sql,$database)->fetchAll();
+		if($result)
 		{
 			$z=0;$x=0;$h=0;$zd=0;$xd=0;$t=0;
-			while($row=mysql_fetch_array($result))
+			foreach($result as $row)
 			{
 				$i = $row['injecttype'];
 				$m = $row['injectmoney'];

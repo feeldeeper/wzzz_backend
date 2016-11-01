@@ -5,14 +5,14 @@ session_set_cookie_params(SESSION_LIFE_TIME);
 session_start();
 $arr=array(1,2,5,6,7,8,11,12,15,16,17,18,19,22,25,26,27);
 $tab = $_SESSION['admintab'];
-if(isset($tab) && $tab!="" && $tab!="0")
+empty($tab) && exit();
+
+$arr=explode(',',$tab);
+for($i=0;$i<count($arr);$i++)
 {
-	$arr=explode(',',$tab);
-	for($i=0;$i<count($arr);$i++)
-	{
-		$arr[$i]=intval($arr[$i]);
-	}
+	$arr[$i]=intval($arr[$i]);
 }
+
 if(isset($_POST['ok']) && $_POST['ok']=="1")
 {
 	
@@ -38,13 +38,13 @@ if(isset($_POST['ok']) && $_POST['ok']=="1")
 		$changnames='chang'.$id;
 		$cinames='ci'.$id;
 		
-		$rid=getlast($id,$conn);
+		$rid=getlast($id,$database);
 		if($rid!="")
 		{
 			$sql="update `round` set gameState=3 where rid=".$rid;
-			mysql_query($sql,$conn);
+			$database->query($sql);
 			$sql="update status set txt='".$id.",3' where id=1";
-			mysql_query($sql,$conn);
+			$database->query($sql);
 		}	
 		
 		$$changnames=intval($$changnames)+1; 
@@ -60,10 +60,10 @@ if(isset($_POST['ok']) && $_POST['ok']=="1")
 		$ctime = date('Y-m-d H:i:s',time());
 		$nt = date('mdHis',time());
 		$num=sprintf("%02d",$id).$ci."15".$nt;
-		$sql="insert into `round`(tab_id,gameNumber,gameState,gameBoot,roundNum,startTime,createtime,result) values('$id','$num','1','$chang','$ci','".getmicro()."','$ctime','-1')";	 
-		mysql_query($sql,$conn);
+		$sql="insert into `round`(tab_id,gameNumber,gameState,gameBoot,roundNum,startTime,createtime,result) values('$id','$num','1','$chang','$ci','".getmicro()."','$ctime','-1')";
+		$database->query($sql);
 		$sql="update status set txt='".$id.",1"."' where id=1";
-		mysql_query($sql,$conn);
+		$database->query($sql);
 		
 	}
 	elseif(isset($_GET['action']) && $_GET['action']=="submit")
@@ -83,38 +83,38 @@ if(isset($_POST['ok']) && $_POST['ok']=="1")
 			$zxh+=intval($zxd[$i]);
 		} 
 		
-		if(!isresult($id,$conn))
+		if(!isresult($id,$database))
 		{ 
 			$ctime = date('Y-m-d H:i:s',time());
 			$nt = date('mdHis',time());
 			$num=sprintf("%02d",$id).$ci."15".$nt;
-			$sql="insert into `round`(tab_id,gameNumber,gameState,gameBoot,roundNum,startTime,createtime,result) values('$id','$num','0','$chang','$ci','".getmicro()."','$ctime','$zxh')";	 
-			mysql_query($sql,$conn);
+			$sql="insert into `round`(tab_id,gameNumber,gameState,gameBoot,roundNum,startTime,createtime,result) values('$id','$num','0','$chang','$ci','".getmicro()."','$ctime','$zxh')";
+			$database->query($sql);
 			
-			$rid=getlast($id,$conn);
+			$rid=getlast($id,$database);
 			if($rid!="")
 			{
 				$sql="update status set txt='".$id.",".$rid."' where id=2";
-				mysql_query($sql,$conn);
+				$database->query($sql);
 				$sql="update status set txt='".$id.",0' where id=1";
-				mysql_query($sql,$conn); 
+				$database->query($sql);
 			} 
 		}else
 		{
-			$rid=getlast($id,$conn);
+			$rid=getlast($id,$database);
 			if($rid!="")
 			{
 				$sql="update `round` set gameState=0,result='$zxh' where rid=$rid";
-				mysql_query($sql,$conn);
+				$database->query($sql);
 				$sql="update status set txt='".$id.",".$rid."' where id=2";
-				mysql_query($sql,$conn);
+				$database->query($sql);
 				$sql="update status set txt='".$id.",0' where id=1";
-				mysql_query($sql,$conn);
+				$database->query($sql);
 				$sql="select * from injectresult where rid=$rid";
-				$query=mysql_query($sql,$conn);
-				if(mysql_num_rows($query))
+				$result=$database->query($sql)->fetchAll();
+				if($result)
 				{
-					while($row=mysql_fetch_array($query))
+					foreach($result as $row)
 					{
 						$injecttype=$row['injecttype'];
 						$injectmoney=$row['injectmoney'];
@@ -123,11 +123,10 @@ if(isset($_POST['ok']) && $_POST['ok']=="1")
 						$syh=getsyh($injecttype,$zxh);
 						$winmoney=getwinmoney($injecttype,$syh,$injectmoney);
 						$sql2="update injectresult set syh='$syh',winmoney='$winmoney' where id=".$injectid;
-						mysql_query($sql2,$conn);
-						updatemoney($uid,$conn);
+						mysql_query($sql2,$database);
+						updatemoney($uid,$database);
 					}
 				}
-				mysql_free_result($query);
 			}
 		} 
 		
@@ -141,8 +140,8 @@ else
 	{
 		$tid=$arr[$i];
 		$sql="select * from `round` where tab_id=$tid order by rid desc";
-		$query = mysql_query($sql,$conn);
-		if($row = mysql_fetch_array($query))
+		$row = $database->query($sql)->fetch();
+		if($row)
 		{
 			$boot = intval($row['gameBoot']);
 			$round = intval($row['roundNum'])+1;
@@ -171,15 +170,15 @@ else
 
 
 
-function updatemoney($uid,$conn)
+function updatemoney($uid,$database)
 {
-	$tsql = "SELECT winmoney,money from injectresult i,user u WHERE i.uid=$uid and i.uid=u.id"; 
-	$query=mysql_query($tsql,$conn);
+	$tsql = "SELECT winmoney,money from injectresult i,user u WHERE i.uid=$uid and i.uid=u.id";
+	$result = $database->query($tsql)->fetchAll();
 	$tmoney=0;
-	if(mysql_num_rows($query))
+	if($result)
 	{
 		
-		while($row=mysql_fetch_array($query))
+		foreach($result as $row)
 		{
 			$money=floatval($row['money']);
 			$tmoney=$tmoney+floatval($row['winmoney']);
@@ -187,7 +186,7 @@ function updatemoney($uid,$conn)
 		$tmoney+=$money;
 	}
 	$sql="update user set currentmoney='$tmoney' where id=$uid";
-	mysql_query($sql,$conn);
+	$database->query($sql);
 }
 
 function getwinmoney($i,$s,$m)
@@ -270,11 +269,11 @@ function getmicro()
 	return floatval($time);
 }
 
-function getlast($id,$conn)
+function getlast($id,$database)
 {
 	$sql="select * from `round` where tab_id=$id order by rid desc";
-	$query = mysql_query($sql,$conn);
-	if($row = mysql_fetch_array($query))
+	$row = $database->query($sql)->fetch();
+	if($row)
 	{
 		return $row['rid'];
 	}
@@ -282,11 +281,11 @@ function getlast($id,$conn)
 	return "";
 }
 
-function isresult($id,$conn)
+function isresult($id,$database)
 {
 	$sql="select * from `round` where tab_id=$id order by rid desc";
-	$query = mysql_query($sql,$conn);
-	if($row = mysql_fetch_array($query))
+	$row = $database->query($sql)->fetch();
+	if($row)
 	{
 		if($row['result']=="-1")
 			return true;
@@ -296,13 +295,13 @@ function isresult($id,$conn)
 	return false;
 }
 
-function getalllast($conn)
+function getalllast($database)
 {
 	$text='<table class="altrowstable"><tr style="background:#BFD5FD;margin:auto;"><th>台号</th><th>场</th><th>次</th><th>状态</th><th>时间</th></tr>';
 	for($i=1;$i<28;$i++){
 		$sql="select * from `round` where tab_id=$i order by rid desc";
-		$query = mysql_query($sql,$conn);
-		if($row = mysql_fetch_array($query))
+		$row = $database->query($sql)->fetch();
+		if($row)
 		{
 			if($row['gameState']=="1")
 				$s="投注中";
@@ -310,7 +309,7 @@ function getalllast($conn)
 				$s="投注结束";
 			else if($row['gameState']=='0')
 			{
-				$s="已有结果 ".getjieguo($row['result'],$conn);
+				$s="已有结果 ".getjieguo($row['result'],$database);
 			}
 			else
 				$s="洗牌中";
@@ -324,11 +323,11 @@ function getalllast($conn)
 	
 }
 
-function getjieguo($id,$conn)
+function getjieguo($id,$database)
 {
 	$sql="select * from result where rid=".$id;
-	$query = mysql_query($sql,$conn);
-	if($row=mysql_fetch_array($query))
+	$row = $database->query($sql)->fetch();
+	if($row)
 	{
 		return $row['result'];
 	}
@@ -432,7 +431,7 @@ for($i=0;$i<count($arr);$i++){
 </form>
 <div style="text-align:center;">
 <center>
-<?php echo getalllast($conn);?>
+<?php echo getalllast($database);?>
 </center>
 </div>
 </div>

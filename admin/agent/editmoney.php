@@ -23,14 +23,14 @@ if(isset($_POST['uid']) && $_POST['uid']!=""){
 	$today = date("Y-m-d H:i:s",time());
 	if($type=="1")
 	{
-		$DB->Query("update user set currentmoney=currentmoney+$im where id = $mid");		
-		$DB->Query("insert into moneylog(uid,createdate,money,type,tid) values('$mid','$today','$im','$type','$suid')");
-		if($ptype=="2"){$DB->Query("update user set currentmoney = currentmoney - $im where id = $pid");}
+		$database->query("update user set currentmoney=currentmoney+$im where id = $mid");
+		$database->query("insert into moneylog(uid,createdate,money,type,tid) values('$mid','$today','$im','$type','$suid')");
+		if($ptype=="2"){$database->query("update user set currentmoney = currentmoney - $im where id = $pid");}
 	}
 	else{
-		$DB->Query("update user set currentmoney=currentmoney-$om where id = $mid");		
-		$DB->Query("insert into moneylog(uid,createdate,money,type,tid) values('$mid','$today','$om','$type','$suid')");
-		if($ptype=="2"){$DB->Query("update user set currentmoney = currentmoney + $om where id = $pid");}
+		$database->query("update user set currentmoney=currentmoney-$om where id = $mid");
+		$database->query("insert into moneylog(uid,createdate,money,type,tid) values('$mid','$today','$om','$type','$suid')");
+		if($ptype=="2"){$database->query("update user set currentmoney = currentmoney + $om where id = $pid");}
 	}
 	echo "<script>window.location='/user/agent/index.php?id=$suid';</script>";
 	exit();
@@ -38,10 +38,10 @@ if(isset($_POST['uid']) && $_POST['uid']!=""){
 if(isset($_GET['id']) && $_GET['id']!="")
 {
 	$uid = $_GET['id'];
-	$user = $DB->Select("select * from user where id = $uid");
+	$user = $database->query("select * from user where id = $uid");
 	$user = $user[0];
 
-	$suser = $DB->Select("select * from user where id = $suid");
+	$suser = $database->query("select * from user where id = $suid");
 	$suser = $suser[0];
 }
 else{

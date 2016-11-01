@@ -5,13 +5,10 @@ include("inc/conn.php");
 session_set_cookie_params(SESSION_LIFE_TIME);
 session_start();
 $uid = $_SESSION['uid'];
-if(isset($uid) && $uid!="" && $uid!="0")
-{
-}
-else{ echo "<script>alert('请先登录!');window.location='login.php';</script>";exit();}
+if(empty($uid)){ echo "<script>alert('请先登录!');window.location='login.php';</script>";exit();}
 $sql="select * from user where id=".$uid;
-$query=mysql_query($sql,$conn);
-if($row=mysql_fetch_array($query))
+$row=$database->query($sql)->fetch();
+if($row)
 {
 	$username=$row['username'];
 	$nickname=$row['nickName'];
